@@ -8,7 +8,7 @@ def contact(request):
     return HttpResponse("contact us")
 
 def about(request):
-    return HttpResponse("about us")
+    return render(request,'shop/about.html',)
 
 def ProductView(request):
     return HttpResponse("product view")
