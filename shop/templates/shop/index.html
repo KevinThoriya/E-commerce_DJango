@@ -1,216 +1,86 @@
+{% extends 'shop/basic.html' %}
 {% block title %}Shop{% endblock %}
 {% block css %}
-.col {}
-
-.row {}
-
-.card-img,
-.card-img-bottom,
-.card-img-top {
-height: 200px;
+.col-md-3
+{
+display: inline-block;
+margin-left:-4px;
 }
-
 .carousel-indicators .active {
-background-color: gray;
+background-color: blue;
 }
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-background-color: gray;
+.col-md-3 img{
+width:200px;
+height:240px;
+}
+body .carousel-indicator li{
+background-color: blue;
+}
+body .carousel-indicators{
+bottom: 0;
+}
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon{
+background-color: blue;
+}
+body .no-padding{
+padding-left: 0,
+padding-right: 0;
 }
 {% endblock %}
 
 {% block body %}
 {% load static %}
 <div class="container">
+    <h1>Man Fashion</h1>
+    <div id="demo" class="carousel slide my-3" data-ride="carousel">
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            {% for i in range %}
+            <li data-target="#demo" data-slide-to="{{i}}"></li>
+            {% endfor %}
+        </ul>
 
-
-        <!-- carousel for adv -->
-        <div class="container-fulid my-5">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1GzN-8yE_0gquQmnX71aXuYt4jomoeEBHDC3e-fHhdHG50XnV&s"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1566956144763"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1566956144763"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1566956144763"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1GzN-8yE_0gquQmnX71aXuYt4jomoeEBHDC3e-fHhdHG50XnV&s"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1566956144763"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1566956144763"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1566956144763"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1GzN-8yE_0gquQmnX71aXuYt4jomoeEBHDC3e-fHhdHG50XnV&s"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1566956144763"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1566956144763"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1566956144763"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
+        <!--Slideshow starts here -->
+        <div class="container carousel-inner no-padding">
+            <div class="carousel-item active">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src='/media/{{ product.0.product_image }}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h6 class="card-title">{{product.0.product_name}}</h6>
+                            <p class="card-text">{{product.0.product_disc}</p>
+                            <a href="#" class="btn btn-primary">Add to cart</a>
                         </div>
                     </div>
                 </div>
+
+                {% for i in product|slice:"1:" %}
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src='/media/{{ i.product_image }}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h6 class="card-title">{{i.product_name}}</h6>
+                            <p class="card-text">{{ i.product_disc }}</p>
+                            <a href="#" class="btn btn-primary">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+            </div><div class="carousel-item">
+                {% endif %}
+                {% endfor %}
             </div>
+        </div>
+    </div>
+
+        
+        <!-- left and right controls for the slide -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+</div>
 {% endblock %}
-
-
-
-
