@@ -6,11 +6,15 @@
 display: inline-block;
 margin-left:-4px;
 }
+.card-text{
+    height: 50px;
+    overflow: hidden;
+}
 .carousel-indicators .active {
 background-color: blue;
 }
 .col-md-3 img{
-width:200px;
+width:auto;
 height:240px;
 }
 body .carousel-indicator li{
@@ -49,7 +53,7 @@ padding-right: 0;
                         <img src='/media/{{ product.0.product_image }}' class="card-img-top" alt="...">
                         <div class="card-body">
                             <h6 class="card-title">{{product.0.product_name}}</h6>
-                            <p class="card-text">{{product.0.product_disc}</p>
+                            <p class="card-text"> {{ product.0.product_disc }} </p>
                             <a href="#" class="btn btn-primary">Add to cart</a>
                         </div>
                     </div>
