@@ -27,6 +27,12 @@ body .carousel-control-prev-icon,
 body .carousel-control-next-icon{
 background-color: blue;
 }
+
+.carousel-control-next,
+.carousel-control-prev{
+    top: auto;
+    bottom:auto;
+}
 body .no-padding{
 padding-left: 0,
 padding-right: 0;
@@ -36,16 +42,18 @@ padding-right: 0;
 {% block body %}
 {% load static %}
 <div class="container">
-    <h1>Man Fashion</h1>
-    <div id="demo" class="carousel slide my-3" data-ride="carousel">
+
+    {% for product , range , n_side in allprod %}
+        <!--Slideshow starts here -->
+    <h4 calss="my-4"> flash sale on {{ product.0.category }} - recommanded for you </h4>
+    <div id="demo{{ forloop.counter }}" class="carousel slide my-3" data-ride="carousel">
         <ul class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo{{ forloop.counter }}" data-slide-to="0" class="active"></li>
             {% for i in range %}
-            <li data-target="#demo" data-slide-to="{{i}}"></li>
+            <li data-target="#demo{{ forloop.perentloop.counter }}" data-slide-to="{{i}}"></li>
             {% endfor %}
         </ul>
 
-        <!--Slideshow starts here -->
         <div class="container carousel-inner no-padding">
             <div class="carousel-item active">
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -54,7 +62,7 @@ padding-right: 0;
                         <div class="card-body">
                             <h6 class="card-title">{{product.0.product_name}}</h6>
                             <p class="card-text"> {{ product.0.product_disc }} </p>
-                            <a href="#" class="btn btn-primary">Add to cart</a>
+                            <button id="pr{{product.0.id}}" class=" cart btn btn-primary">Add to cart</a>
                         </div>
                     </div>
                 </div>
@@ -66,7 +74,7 @@ padding-right: 0;
                         <div class="card-body">
                             <h6 class="card-title">{{i.product_name}}</h6>
                             <p class="card-text">{{ i.product_disc }}</p>
-                            <a href="#" class="btn btn-primary">Add to cart</a>
+                            <button id="pr{{i.id}}" class="btn btn-primary cart">Add to cart</a>
                         </div>
                     </div>
                 </div>
@@ -80,11 +88,41 @@ padding-right: 0;
 
         
         <!-- left and right controls for the slide -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <a class="carousel-control-prev" href="#demo{{ forloop.counter }}" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
         </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
+        <a class="carousel-control-next" href="#demo{{ forloop.counter }}" data-slide="next">
             <span class="carousel-control-next-icon"></span>
         </a>
-</div>
+
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+
+<script>
+    var cart;
+    function clearcart(){
+    localStorage.setItem('cart', JSON.stringify({}));
+    cart = {};
+    }
+if(localStorage.getItem('cart') == null){
+    cart = {};
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'))
+}
+$(".cart").click(function() {
+    strid = this.id.toString();
+    if( cart[strid] == undefined){
+        cart[strid] = 1;
+    } else {
+        cart[strid] += 1;
+    }
+    localStorage.setItem('cart' , JSON.stringify(cart));
+    console.log(cart);
+});
+
+</script>
+
 {% endblock %}

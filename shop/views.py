@@ -5,11 +5,15 @@ from math import ceil
 # Create your views here.
 
 def index(request):
-    product = Product.objects.all()
-    n = len(product)
-    n_side = n//4 + ceil(n/4 - n//4)
-    print('**********'+str(range(1,n_side)))
-    params = {'product':product, 'n_side':n_side, 'range' : range(1,n_side)}
+    allprod = []
+    catprods = Product.objects.values('category', 'id')
+    cats = {item['category'] for item in catprods}
+    for cat in cats:
+        prod = Product.objects.filter(category=cat)
+        n = len(prod)
+        n_slide = n//4 + ceil(n/4 - n//4)
+        allprod.append([prod , range(1,n_slide), n_slide])
+    params = {'allprod':allprod,}
     return render(request,'shop/index.html', params)
 
 def contact(request):
