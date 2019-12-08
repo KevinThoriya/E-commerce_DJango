@@ -1,3 +1,91 @@
 {% extends "shop/basic.html"  %}
 {% block title %}About - Chalo Mall cart{% endblock %}
-{% block body %}body for about{% endblock %}
+
+{% block body %}
+
+
+
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3"><b>Chalo Mall Cart</b></h1>
+            <p>Chalo Mall Cart Private Limited, d/b/a Chalo Mall Cart is an Indian e-commerce company based in gujarat, India. It was founded by Kevin Thoriya in 2019. The company initially focused on applience sales, before expanding into other product categories such as consumer electronics, fashion, and lifestyle products.
+
+                The service competes primarily with Amazon's Indian subsidiary, and the domestic rival Snapdeal. As of March 2019, Chalo Mall Cart held a 39.5% market share of India's e-commerce industry. Chalo Mall Cart is significantly dominant in the sale of apparel (a position that was bolstered by its acquisitions of Myntra and Jabong.com), and was described as being "neck and neck" with Amazon in the sale of electronics and mobile phones. Chalo Mall Cart also owns PhoneLe, a mobile payments service based on the Unified Payments Interface (UPI).
+                
+                In August 2019, U.S.-based retail Jams Bond acquired a 77% controlling stake in Chalo Mall Cart for US$16 billion, valuing it at $20 billion.</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2>House brands</h2>
+                <p>Chalo Mall Cart maintains several house brands, including Citron (home appliances) and Digiflip (formerly for electronics and accessories). In 2019, ChaloMall cart launched additional brands, including Billion (smartphones), Smartbuy (electronics accessories, effectively replacing Digiflip), and MarQ (for large appliances, although its launch was faced with a trademark dispute with an existing company, Marc Enterprises). </p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Business structure</h2>
+                <p>In a report dated 25 November 2019, a leading media outlet reported that Chalo Mall Cart were operating through a complex business structure which included nine firms, some registered in Singapore and some in India. In 2012, Chalo Mall Cart co-founders sold WS Retail to a consortium of investors led by Rajeev Kuchhal</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Chalo Mall Cart Video</h2>
+                <p>Chalo Mall Cart has launched in app streaming named Chalo Mall Cart Video as part of a new direction they want to move and to match its competitors like Amazon who are offering premium video options in August 2019. The initial line up of content is curated from the service providers.</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div>
+        </div>
+
+        <hr>
+
+    </div> <!-- /container -->
+
+</main>
+
+
+{% endblock %}
+{% block js %}
+
+<script>
+    var cart;
+    var cartpop = document.getElementById('cartpop');
+    // console.log(Object);
+
+    function init()
+    {
+        if(localStorage.getItem('cart') == null){
+            cart = {};
+        } else {
+            cart = JSON.parse(localStorage.getItem('cart'));
+            document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+        }
+        
+        $(".cart").click(function() {
+            strid = this.id.toString();
+            if( cart[strid] == undefined){
+                cart[strid] = 1;
+            } else {
+                cart[strid] += 1;
+            }
+            localStorage.setItem('cart' , JSON.stringify(cart));
+            document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+        });
+
+
+    }
+
+    function clearcart(){
+        localStorage.setItem('cart', JSON.stringify({}));
+        cart = {};
+        document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+    }
+
+    init();
+
+</script>
+
+{% endblock %}
