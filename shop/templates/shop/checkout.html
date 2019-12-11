@@ -1,0 +1,118 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}
+CheckOut - CMcart
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row my-5">
+        <div class="col-md-10 col-sm-12">
+            <h2 id="step1" style="width:70%;"> Step: 1. Check Your Items in CMcart.. </h2>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <a href="#step2"><button class="btn btn-dark">Next..</button></a>
+        </div>
+    </div>
+
+    <div class=" my-5 container-fluid align-items-center">
+        <table border="2">
+            <tr>
+                <th style="width: 250px;"> Image</th>
+                <th style="width: 400px;"> Name</th>
+                <th style="width: 150px;"> Prize</th>
+                <th style="width: 70px;"> </th>
+                <th style="width: 130px;"> Qty.</th>
+                <th style="width: 70px;"> </th>
+                <th style="width: 70px;"> </th>
+                <th style="width: 200px;"> total cost</th>
+            </tr>
+
+            {% for i in range %}
+            <tr style="height: 200px;">
+                <td>i.product_image</td>
+                <td>i.product_name</td>
+                <td>i.product_price</td>
+                <td>+</td>
+                <td>i.product_qty</td>
+                <td>-</td>
+                <td>x</td>
+                <td>i.product_price</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+
+    <div class="row my-5">
+        <div class="col-md-10 col-sm-12">
+            <h2 id="step2" style="width:70%;"> Step: 2. Select the delevery Address </h2>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <button class="btn btn-dark">Next..</button>
+        </div>
+    </div>
+
+
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Password</label>
+                <input type="password" class="form-control" id="inputPassword4">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Address 2</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input type="text" class="form-control" id="inputCity">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputState">State</label>
+                <select id="inputState" class="form-control">
+                    <option selected>India</option>
+                    <option>...</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputZip">Zip</label>
+                <input type="text" class="form-control" id="inputZip">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <label class="form-check-label" for="gridCheck">
+                    Check me out
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}

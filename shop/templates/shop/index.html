@@ -69,9 +69,11 @@ padding-right: 0;
                 <div class="card" style="width: 18rem;">
                     <img src='/media/{{ i.product_image }}' class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h6 class="card-title">{{i.product_name}}</h6>
+                        <h6 id="namepr{{i.id}}" class="card-title">{{i.product_name}}</h6>
                         <p class="card-text">{{ i.product_disc }}</p>
-                        <button id="pr{{i.id}}" class="btn btn-primary cart">Add to cart</button>
+                        <span id="divpr{{i.id}}">
+                            <button id="pr{{i.id}}" class="btn btn-primary cart">Add to cart</button>
+                        </span>
                         <a href="/shop/product/{{ i.id }}"> <button id="qv{{i.id}}" class="btn btn-primary">Quick View</button></a>
                     </div>
                 </div>
@@ -103,7 +105,7 @@ padding-right: 0;
 <script>
     var cart;
     var cartpop = document.getElementById('cartpop');
-    // console.log(Object);
+    
 
     function init()
     {
@@ -111,9 +113,19 @@ padding-right: 0;
             cart = {};
         } else {
             cart = JSON.parse(localStorage.getItem('cart'));
-            document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+            document.getElementById('cart_counter').innerHTML = updatecounter();
         }
-        
+        cilckcart();
+
+        for(var strid in cart){
+            updatecart(strid);
+        }
+
+        updatepopover();
+    
+    }
+
+    function cilckcart(){
         $(".cart").click(function() {
             strid = this.id.toString();
             if( cart[strid] == undefined){
@@ -121,21 +133,83 @@ padding-right: 0;
             } else {
                 cart[strid] += 1;
             }
+            updatecart(strid);
             localStorage.setItem('cart' , JSON.stringify(cart));
-            document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+            document.getElementById('cart_counter').innerHTML = updatecounter();
+            updatepopover();
+
         });
-
-
     }
 
+    function updatepopover(){
+        var popstr = '<h6>Chalo Mall Cart</h6> <br><p>';
+        var i = 1;
+        for (var id in cart) {
+            popstr += '<b>'+i+'. </b><a href="#name'+ id +'">'+ document.getElementById('name'+ id ).innerHTML.toString() + '.... qty.=' + cart[id] + '.</a><br>';
+            i += 1;
+        }
+        popstr += '</p><br> <a onclick="clearcart();return false;" href="javascript:clearcart;" class="btn btn-warning" >Clear Cart</a> <a href="/shop/checkout/"><div  id="clrcart" class="mx-1 btn btn-warning">Check Out</div></a>';
+        document.getElementById('cartpop').setAttribute('data-content',popstr);
+        $('#cartpop').popover('show');
+    }
+
+    function updatecart(strid){
+        var string = '<span> <button onClick="clickPM(this.id)"  id="plus'+ strid +'" class="btn btn-info prodpm "> + </button> </span><span id="pv'+ strid +'"> '+cart[strid]+' </span><span> <button onClick="clickPM(this.id)" id="minus'+ strid +'" class=" btn btn-warning prodpm "> - </button></span>';
+        document.getElementById('div'+ strid ).innerHTML = string ; 
+        updatepopover();
+    }
+
+    function clickPM(strid) {
+            if( strid[0] == "p") {
+                strid = strid.slice(4,);
+                cart[strid] += 1;
+                updateplusminuscart(strid);
+            } else {
+                strid = strid.slice(5,);
+                if((cart[strid] - 1) >= 1)
+                {
+                    cart[strid] = (cart[strid] - 1);
+                    updateplusminuscart(strid);
+                } else {
+                    cart[strid] = 0;
+                    document.getElementById('div'+ strid ).innerHTML =  '<button id="'+ strid +'" class="btn btn-primary cart">Add to cart</button>';
+                    delete cart[strid];
+                    localStorage.setItem('cart' , JSON.stringify(cart));
+                    document.getElementById('cart_counter').innerHTML = updatecounter();
+                    cilckcart();
+                }
+            }
+            updatepopover();
+        }
+
+    function updateplusminuscart(strid){
+        document.getElementById('pv'+strid).innerHTML = cart[strid];
+        document.getElementById('cart_counter').innerHTML = updatecounter();
+        localStorage.setItem('cart' , JSON.stringify(cart));
+        updatepopover(); 
+    }   
+
+    function updatecounter(){
+        var sum = 0;
+        for(var i in cart){
+            sum += cart[i];
+        }
+        return sum;
+    }
     function clearcart(){
-        localStorage.setItem('cart', JSON.stringify({}));
+        console.log('cart clear');
+        for(var strid in cart){
+            document.getElementById('div'+ strid ).innerHTML =  '<button id="'+ strid +'" class="btn btn-primary cart">Add to cart</button>';
+        }
+        cilckcart();
         cart = {};
-        document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+        updatepopover();
+        document.getElementById('cart_counter').innerHTML = '0';
+        localStorage.setItem('cart', JSON.stringify({}));
+        updatepopover();
     }
 
     init();
-
 </script>
 
 {% endblock %}

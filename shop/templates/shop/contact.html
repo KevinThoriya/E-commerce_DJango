@@ -1,5 +1,48 @@
 {% extends "shop/basic.html"  %}
 {% block title %}Contact - CMcart{% endblock %}
 {% block body %}
+<div class="container">
+
+    <h1 class=" my-3"><b>Contact Us </b></h1>
+    <h6 class="align-items-center">WE LOVE'D TO HEAR FROM YOU !</h6>
+    <p class="align-items-center">If you have any queries or questions fill free to ask here<br>
+    we would happy to answer all your questions. </p>
+    <div class="contact-form">
+
+        <form action="/shop/contact/" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="name">Name :-</label>
+                <input type="text" class="form-control" id="name" name="name"
+                    placeholder="Enter Full name.. ">
+            </div>
+
+                <div class="form-group">
+                    <label for="email">Email address :-</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                        placeholder="Enter Email ID. .">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Mobile Number :-</label>
+                    <input type="tel" class="form-control" id="phone"name="phone"
+                        placeholder="Enter Phone Number.. ">
+                </div>
+
+                <div class="form-group">
+                    <label for="disc">How May I Help You ?</label>
+                    <textarea class="form-control" id="disc" name="disc" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="sumbit" class="btn btn-success btn-transparent " id="submit" name="submit" value="Submit" style="padding: 5px 15px;"> Submit </button>
+                </div>                
+
+        </form>
+
+    </div>
+
+</div>
 
 {% endblock %}

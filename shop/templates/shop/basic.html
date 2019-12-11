@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>{% block title  %} {%  endblock %}</title>
-    <link rel="stylesheet" href="/shop/templates/shop/CMcart.css">
 
     <style>
         {% block css  %} {%  endblock %}
@@ -71,9 +70,9 @@
         {% block js %}
         {% endblock %}
         <script>   
-            var cartpop = document.getElementById('cartpop');
+
             $('#cartpop').popover();
-            cartpop.setAttribute('data-content'," <h6>Chalo Mall Cart</h6> ");
+
         </script>
     </body>
 
