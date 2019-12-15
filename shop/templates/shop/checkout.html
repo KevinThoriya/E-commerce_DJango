@@ -22,28 +22,28 @@ CheckOut - CMcart
     </div>
 
     <div class=" my-5 container-fluid align-items-center">
-        <table border="2">
-            <tr>
-                <th style="width: 250px;"> Image</th>
-                <th style="width: 400px;"> Name</th>
-                <th style="width: 150px;"> Prize</th>
-                <th style="width: 70px;"> </th>
-                <th style="width: 130px;"> Qty.</th>
-                <th style="width: 70px;"> </th>
-                <th style="width: 70px;"> </th>
-                <th style="width: 200px;"> total cost</th>
+        <table border="0">
+            <tr style=" border-bottom: 2px solid gray;">
+                <th style="width: 250px;  border-right : 2px solid gray;"> Image</th>
+                <th style="width: 400px; border-right : 2px solid gray;"> Name</th>
+                <th style="width: 150px; border-right : 2px solid gray;"> Prize</th>
+                <th style="width: 70px; border-right : 2px solid gray;"> </th>
+                <th style="width: 130px; border-right : 2px solid gray;"> Qty.</th>
+                <th style="width: 70px; border-right : 2px solid gray;"> </th>
+                <th style="width: 70px; border-right : 2px solid gray;"> </th>
+                <th style="width: 200px;  "> total cost</th>
             </tr>
 
-            {% for i in range %}
-            <tr style="height: 200px;">
-                <td>i.product_image</td>
-                <td>i.product_name</td>
-                <td>i.product_price</td>
-                <td>+</td>
-                <td>i.product_qty</td>
-                <td>-</td>
-                <td>x</td>
-                <td>i.product_price</td>
+            {% for i in items %}
+            <tr id="pr{{i.5}}" style="height: 200px; border-bottom: 2px solid gray;">
+                <td> <img width:100 src="/media/{{i.0}}" alt="{{i.1}}"> </td>
+                <td style="">{{i.1}}</td>
+                <td style="">{{i.2}}</td>
+                <td style=""><button id="pluspr{{i.5}}" class="btn btn-primary plus" > + </button></td>
+                <td style="" > <div id="displaypr{{i.5}}">{{i.3}}</div>   </td>
+                <td style=""><button id="minuspr{{i.5}}" class="btn btn-warning minus"> - </button></td>
+                <td  style=""><button id="deletepr{{i.5}}" class="btn btn-danger delete"> X </button> </td>
+                <td style="">{{i.4}}</td>
             </tr>
             {% endfor %}
 
@@ -114,5 +114,45 @@ CheckOut - CMcart
 
 
 {% block js %}
+<script>
+function init(){
+    if(localStorage.getItem('cart') == null){
+        cart = {};
+    } else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+    }
+    $('.plus').click(function(){
+        id = (this.id).slice(4,);
+        cart[id] += 1;
+        updateCart();
+        console.log('#display'+id);
+        document.getElementById('display'+ id).innerHTML = cart[id];
+    });
 
+    $('.minus').click(function(){
+        id = (this.id).slice(5,);
+        cart[id] -= 1;
+        if(cart[id] <= 0) {
+            delete cart[ id ];
+            $('#'+id).remove();
+        }else{
+            document.getElementById('display'+ id).innerHTML = cart[id];
+        }
+        updateCart();
+    });
+
+    $('.delete').click(function() {
+        id = (this.id).slice(6,);
+        delete cart[id];
+        updateCart();
+        $('#'+ id).remove();
+    });
+}
+
+function updateCart(){
+    localStorage.setItem('cart' , JSON.stringify(cart));
+}
+
+init();
+</script>
 {% endblock %}

@@ -104,7 +104,7 @@ padding-right: 0;
 
 <script>
     var cart;
-    var cartpop = document.getElementById('cartpop');
+    // var cartpop = document.getElementById('cartpop');
     
 
     function init()
@@ -121,7 +121,8 @@ padding-right: 0;
             updatecart(strid);
         }
 
-        updatepopover();
+        updatepopover(); 
+        // CWH();
     
     }
 
@@ -140,17 +141,24 @@ padding-right: 0;
 
         });
     }
-
+    
     function updatepopover(){
         var popstr = '<h6>Chalo Mall Cart</h6> <br><p>';
         var i = 1;
         for (var id in cart) {
+            // console.log('name'+ id );
             popstr += '<b>'+i+'. </b><a href="#name'+ id +'">'+ document.getElementById('name'+ id ).innerHTML.toString() + '.... qty.=' + cart[id] + '.</a><br>';
             i += 1;
         }
-        popstr += '</p><br> <a onclick="clearcart();return false;" href="javascript:clearcart;" class="btn btn-warning" >Clear Cart</a> <a href="/shop/checkout/"><div  id="clrcart" class="mx-1 btn btn-warning">Check Out</div></a>';
-        document.getElementById('cartpop').setAttribute('data-content',popstr);
-        $('#cartpop').popover('show');
+        popstr += '</p><br>';
+        // document.getElementById('cartpop').setAttribute('data-content',popstr);
+        //$('#cartpop').popover('show');
+        $('body').popover({
+            selector: '.has-popover'
+        });
+        $('#cartpop').tooltip({ boundary: 'window' });
+        document.getElementById('cartpop').setAttribute('data-original-title',popstr);
+        document.getElementById('items_in_cart').setAttribute('value',JSON.stringify(cart));
     }
 
     function updatecart(strid){

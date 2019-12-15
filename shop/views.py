@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Product, Contact
 from math import ceil
+import json
 # Create your views here.
 
 def index(request):
@@ -16,6 +17,7 @@ def index(request):
     params = {'allprod':allprod,}
     return render(request,'shop/index.html', params)
 
+
 def contact(request):
     params = {}
     if request.method == 'POST':
@@ -28,9 +30,11 @@ def contact(request):
         print(contact)
     return render(request,'shop/contact.html',params)
 
+
 def about(request):
     params = {}
     return render(request,'shop/about.html',params)
+
 
 def ProductView(request, id):
     #fetch product with id
@@ -45,7 +49,26 @@ def ProductView(request, id):
 
 def checkout(request):
     params = {"range": range(0,9)}
+    if request.method == "POST":
+        items_cart = request.POST.get("items")
+        items_cart = json.loads(items_cart)
+        items = []
+        for i,j in items_cart.items():
+            items_id = i.replace('pr','')
+            item = Product.objects.filter(id=items_id)
+            product = []
+            product.append(item[0].product_image)
+            product.append(item[0].product_name)
+            product.append(item[0].product_prize)
+            product.append(j)
+            product.append(j * item[0].product_prize)
+            product.append(items_id)
+            items.append(product)
+            print(product)
+        params["items"] = items
+            
     return render(request,'shop/checkout.html',params)
+
 
 def tracker(request):
     params = {}
