@@ -39,16 +39,21 @@ CheckOut - CMcart
             <tr id="pr{{i.5}}" style="height: 200px; border-bottom: 2px solid gray;">
                 <td> <img width:100 src="/media/{{i.0}}" alt="{{i.1}}"> </td>
                 <td style="">{{i.1}}</td>
-                <td style="">{{i.2}}</td>
+                <td style=" "id="rspr{{i.5}}">{{i.2}}</td>
                 <td style=""><button id="pluspr{{i.5}}" class="btn btn-primary plus" > + </button></td>
                 <td style="" > <div id="displaypr{{i.5}}">{{i.3}}</div>   </td>
                 <td style=""><button id="minuspr{{i.5}}" class="btn btn-warning minus"> - </button></td>
                 <td  style=""><button id="deletepr{{i.5}}" class="btn btn-danger delete"> X </button> </td>
-                <td style="">{{i.4}}</td>
+                <td id="ptpr{{i.5}}" style="">{{i.4}}</td>
             </tr>
             {% endfor %}
-
+            
         </table>
+            <div class="my-2 mx-3" style="position: relative;">
+                <span style="position: absolute; left: 2px;"><b>Payable Cost </b></span>
+                <span> </span><span  style="position: absolute; right: 2px;"><b> <span id="totalcount">30000</span><span> /- only</span>   </b></span>
+            </div>
+        
         {% else %}
         <h6>There is No items in cart goto <a href="/shop">HOME</a> page and add some item</h6>
         {% endif %}
@@ -56,11 +61,8 @@ CheckOut - CMcart
 
 
     <div class="row my-5">
-        <div class="col-md-10 col-sm-12">
+        <div class="mt-5 col-md-10 col-sm-12">
             <h2 id="step2" style="width:70%;"> Step: 2. Select the delevery Address </h2>
-        </div>
-        <div class="col-md-2 col-sm-12">
-            <button class="btn btn-dark">Next..</button>
         </div>
     </div>
 
@@ -112,7 +114,7 @@ CheckOut - CMcart
         </div>
         <button type="submit" class="btn btn-primary">delver to This address.</button>
     </form>
-
+    <div class="my-5"></div>
 </div>
 
 {% endblock %}
@@ -120,10 +122,11 @@ CheckOut - CMcart
 
 {% block js %}
 function init(){
-
+    totalcount();
     document.getElementById('itms').setAttribute('value',JSON.stringify(cart));
     $('.plus').click(function(){
         id = (this.id).slice(4,);
+        document.getElementById('pt'+id).innerHTML = parseInt(document.getElementById('pt'+id).innerHTML) + parseInt(document.getElementById('rs'+id).innerHTML);
         cart[id] += 1;
         updateCart();
         console.log('#display'+id);
@@ -132,6 +135,7 @@ function init(){
 
     $('.minus').click(function(){
         id = (this.id).slice(5,);
+        document.getElementById('pt'+id).innerHTML = parseInt(document.getElementById('pt'+id).innerHTML) - parseInt(document.getElementById('rs'+id).innerHTML);
         cart[id] -= 1;
         if(cart[id] <= 0) {
             delete cart[ id ];
@@ -151,8 +155,18 @@ function init(){
 }
 function updateCart(){
     updatecounter();
+    totalcount();
     localStorage.setItem('cart' , JSON.stringify(cart));
 }
 
+function totalcount(){
+    var sum = 0;
+    for(var i in cart)
+    {
+        var strid = 'pt' + i;
+        sum += parseInt(document.getElementById(strid).innerHTML);
+    }
+    document.getElementById('totalcount').innerHTML = sum;
+}
 init();
 {% endblock %}
