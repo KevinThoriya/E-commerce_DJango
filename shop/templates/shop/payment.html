@@ -1,0 +1,16 @@
+{% extends 'shop/basic.html' %}
+
+
+{% block title %}
+payment
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+
+
+{% block js %}
+    alert("we got the order. your order id is {{id}}. use it to treck your order. ");
+    localStorage.clear();
+    document.location.href = ("http://127.0.0.1:8000/shop/"); 
+{% endblock %}

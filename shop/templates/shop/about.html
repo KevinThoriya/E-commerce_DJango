@@ -16,7 +16,7 @@
                 The service competes primarily with Amazon's Indian subsidiary, and the domestic rival Snapdeal. As of March 2019, Chalo Mall Cart held a 39.5% market share of India's e-commerce industry. Chalo Mall Cart is significantly dominant in the sale of apparel (a position that was bolstered by its acquisitions of Myntra and Jabong.com), and was described as being "neck and neck" with Amazon in the sale of electronics and mobile phones. Chalo Mall Cart also owns PhoneLe, a mobile payments service based on the Unified Payments Interface (UPI).
                 
                 In August 2019, U.S.-based retail Jams Bond acquired a 77% controlling stake in Chalo Mall Cart for US$16 billion, valuing it at $20 billion.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg" href="#" role="button">Learn more &raquo;</a></p>
         </div>
     </div>
 
@@ -50,19 +50,11 @@
 {% endblock %}
 {% block js %}
 
-<script>
-    var cart;
     var cartpop = document.getElementById('cartpop');
-    // console.log(Object);
 
     function init()
     {
-        if(localStorage.getItem('cart') == null){
-            cart = {};
-        } else {
-            cart = JSON.parse(localStorage.getItem('cart'));
-            document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
-        }
+        
         
         $(".cart").click(function() {
             strid = this.id.toString();
@@ -72,20 +64,16 @@
                 cart[strid] += 1;
             }
             localStorage.setItem('cart' , JSON.stringify(cart));
-            document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+            updatecounter();
         });
-
-
     }
 
     function clearcart(){
         localStorage.setItem('cart', JSON.stringify({}));
         cart = {};
-        document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+        updatecounter();
     }
 
     init();
-
-</script>
 
 {% endblock %}

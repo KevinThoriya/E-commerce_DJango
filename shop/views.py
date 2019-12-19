@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Product, Contact
+from .models import Product, Contact, Order, OrderUpdate
 from math import ceil
 import json
 # Create your views here.
@@ -66,12 +66,49 @@ def checkout(request):
             items.append(product)
             print(product)
         params["items"] = items
-            
     return render(request,'shop/checkout.html',params)
 
+def payment(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        add1 = request.POST.get("add1")
+        add2 = request.POST.get("add2")
+        zipcode = request.POST.get("zip_code")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        items = request.POST.get("items")
+        order = Order(ord_name = name , ord_email = email, ord_city = city, ord_state = state , ord_add1 = add1 , ord_add2 = add2 , ord_zip = zipcode, ord_items = items )
+        order.save()
+        done = True
+        if done :
+            stmt = 'your Order has been placed. we are working on it.'
+            orderupdate = OrderUpdate(orderId= order.ord_id, orderDisc=stmt, )
+            orderupdate.save();
+            params = {'done': done, 'id' : order.ord_id}
+            return render(request,'shop/payment.html',params)
+        else:
+            return HttpResponse('try again after some time. sesver problem ')
 
 def tracker(request):
     params = {}
+    if request.method == 'POST':
+        email = request.POST.get('email','')
+        orderId = request.POST.get('orderId','')
+        print(email , orderId)
+        try: 
+            update = Order.objects.filter(ord_email = email , ord_id = orderId)
+            if len(update) > 0:
+                ord_update = OrderUpdate.objects.filter(orderId = orderId)
+                updates = []
+                for i in ord_update:
+                    updates.append({'text': i.orderDisc , 'time' : i.orderUpTime});
+                responce = json.dumps(updates, default=str);
+                return HttpResponse(responce);
+            else:
+                return HttpResponse(" {}");
+        except Exception as e:
+            return HttpResponse({});
     return render(request,'shop/tracker.html',params)
 
 def search(request):

@@ -12,7 +12,7 @@ margin-left:-4px;
     overflow: hidden;
 }
 .carousel-indicators .active {
-background-color: blue;
+background-color: green;
 }
 .col-md-3 img{
 width:auto;
@@ -26,7 +26,7 @@ bottom: 0;
 }
 body .carousel-control-prev-icon,
 body .carousel-control-next-icon{
-background-color: blue;
+background-color: green;
 }
 
 .carousel-control-next,
@@ -74,7 +74,7 @@ padding-right: 0;
                         <span id="divpr{{i.id}}">
                             <button id="pr{{i.id}}" class="btn btn-primary cart">Add to cart</button>
                         </span>
-                        <a href="/shop/product/{{ i.id }}"> <button id="qv{{i.id}}" class="btn btn-primary">Quick View</button></a>
+                        <a href="/shop/product/{{ i.id }}"> <button id="qv{{i.id}}" class="btn btn-success">Quick View</button></a>
                     </div>
                 </div>
             </div>
@@ -102,19 +102,9 @@ padding-right: 0;
 
 {% block js %}
 
-<script>
-    var cart;
-    // var cartpop = document.getElementById('cartpop');
-    
-
     function init()
     {
-        if(localStorage.getItem('cart') == null){
-            cart = {};
-        } else {
-            cart = JSON.parse(localStorage.getItem('cart'));
-            document.getElementById('cart_counter').innerHTML = updatecounter();
-        }
+        
         cilckcart();
 
         for(var strid in cart){
@@ -136,30 +126,13 @@ padding-right: 0;
             }
             updatecart(strid);
             localStorage.setItem('cart' , JSON.stringify(cart));
-            document.getElementById('cart_counter').innerHTML = updatecounter();
+            updatecounter();
             updatepopover();
 
         });
     }
     
-    function updatepopover(){
-        var popstr = '<h6>Chalo Mall Cart</h6> <br><p>';
-        var i = 1;
-        for (var id in cart) {
-            // console.log('name'+ id );
-            popstr += '<b>'+i+'. </b><a href="#name'+ id +'">'+ document.getElementById('name'+ id ).innerHTML.toString() + '.... qty.=' + cart[id] + '.</a><br>';
-            i += 1;
-        }
-        popstr += '</p><br>';
-        // document.getElementById('cartpop').setAttribute('data-content',popstr);
-        //$('#cartpop').popover('show');
-        $('body').popover({
-            selector: '.has-popover'
-        });
-        $('#cartpop').tooltip({ boundary: 'window' });
-        document.getElementById('cartpop').setAttribute('data-original-title',popstr);
-        document.getElementById('items_in_cart').setAttribute('value',JSON.stringify(cart));
-    }
+
 
     function updatecart(strid){
         var string = '<span> <button onClick="clickPM(this.id)"  id="plus'+ strid +'" class="btn btn-info prodpm "> + </button> </span><span id="pv'+ strid +'"> '+cart[strid]+' </span><span> <button onClick="clickPM(this.id)" id="minus'+ strid +'" class=" btn btn-warning prodpm "> - </button></span>';
@@ -183,27 +156,40 @@ padding-right: 0;
                     document.getElementById('div'+ strid ).innerHTML =  '<button id="'+ strid +'" class="btn btn-primary cart">Add to cart</button>';
                     delete cart[strid];
                     localStorage.setItem('cart' , JSON.stringify(cart));
-                    document.getElementById('cart_counter').innerHTML = updatecounter();
+                    updatecounter();
                     cilckcart();
                 }
             }
             updatepopover();
         }
+        
+
+        function updatepopover(){
+            var popstr = '<h6>Chalo Mall Cart</h6> <br><p>';
+            var i = 1;
+            for (var id in cart) {
+                // console.log('name'+ id );
+                popstr += '<b>'+i+'. </b>'+ document.getElementById('name'+ id ).innerHTML.toString() + '.... qty.=' + cart[id] + '.<br>';
+                i += 1;
+            }
+            popstr += '</p><br>';
+            // document.getElementById('cartpop').setAttribute('data-content',popstr);
+            //$('#cartpop').popover('show');
+            $('body').popover({
+                selector: '.has-popover'
+            });
+            $('#cartpop').tooltip({ boundary: 'window' });
+            document.getElementById('cartpop').setAttribute('data-original-title',popstr);
+        }   
+
 
     function updateplusminuscart(strid){
         document.getElementById('pv'+strid).innerHTML = cart[strid];
-        document.getElementById('cart_counter').innerHTML = updatecounter();
+        updatecounter();
         localStorage.setItem('cart' , JSON.stringify(cart));
         updatepopover(); 
     }   
 
-    function updatecounter(){
-        var sum = 0;
-        for(var i in cart){
-            sum += cart[i];
-        }
-        return sum;
-    }
     function clearcart(){
         console.log('cart clear');
         for(var strid in cart){
@@ -218,6 +204,6 @@ padding-right: 0;
     }
 
     init();
-</script>
+
 
 {% endblock %}

@@ -25,3 +25,27 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    ord_id = models.AutoField(primary_key = True)
+    ord_items = models.CharField(max_length = 500)
+    ord_name = models.CharField(max_length = 500)
+    ord_email = models.CharField(max_length = 500)
+    ord_city = models.CharField(max_length = 500)
+    ord_state = models.CharField(max_length = 500)
+    ord_add1 = models.CharField(max_length = 500)
+    ord_add2 = models.CharField(max_length = 500)
+    ord_zip = models.CharField(max_length = 500)
+
+    def __str__(self):
+        return self.ord_name
+
+class OrderUpdate(models.Model):
+    orderUpId = models.AutoField(primary_key=True)
+    orderId = models.IntegerField(default= '')
+    orderDisc = models.CharField(max_length=500)
+    orderUpTime = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.orderId)
+        

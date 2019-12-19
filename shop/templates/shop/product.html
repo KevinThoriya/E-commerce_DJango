@@ -132,18 +132,14 @@ padding-right: 0;
 
 {% endblock %}
 {% block js %}
-<script>
-    var cart;
     var cartpop = document.getElementById('cartpop');
-    // console.log(Object);
-
     function init()
     {
         if(localStorage.getItem('cart') == null){
             cart = {};
         } else {
             cart = JSON.parse(localStorage.getItem('cart'));
-            document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+            updatecounter();
         }
         
         $(".cart").click(function() {
@@ -154,7 +150,7 @@ padding-right: 0;
                 cart[strid] += 1;
             }
             localStorage.setItem('cart' , JSON.stringify(cart));
-            document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+            updatecounter();
         });
 
 
@@ -163,10 +159,9 @@ padding-right: 0;
     function clearcart(){
         localStorage.setItem('cart', JSON.stringify({}));
         cart = {};
-        document.getElementById('cart_counter').innerHTML = Object.keys(cart).length;
+        updatecounter();
     }
 
     init();
 
-</script>
 {% endblock %}

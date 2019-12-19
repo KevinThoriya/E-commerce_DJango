@@ -56,7 +56,7 @@ ROOT_URLCONF = 'CMcart.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['CMcart/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
